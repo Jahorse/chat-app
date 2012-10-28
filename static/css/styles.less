@@ -1,0 +1,76 @@
+@orange: #FF9900;
+@blue: #0000FF;
+@lightBlue: lighten(@blue, 25%);
+
+@pageWidth: 1000px;
+@boxHeight: 450px;
+@boxWidth: (@pageWidth * 0.9);
+@sendButtonWidth: 46px;
+@colorPickerWidth: 23px;
+@colorPickerHeight:20px;
+
+html {
+	height:1000px;
+}
+
+body {
+	background-color:@orange;
+	height:100%;
+	margin:0;
+}
+
+a {
+	text-decoration:none;
+	color:@blue;
+	&:hover {
+		text-decoration:underline;
+		color:@lightBlue;
+	}
+}
+
+.content {
+	background-color:#FFF;
+	width:@pageWidth;
+	height:100%;
+	padding:0 10px;
+	margin:0 auto;
+	overflow:hidden;
+}
+
+#usernameConsole {
+	margin:0 auto;
+	width:@boxWidth + 10;
+	#usernameInput {
+		margin-left:0px;
+	}
+}
+
+#chitChatBox {
+	border:5px inset;
+	width:@boxWidth;
+	height:@boxHeight;
+	margin: 0 auto;
+	vertical-align: bottom;
+	overflow-y:scroll;
+}
+
+#messageConsole {
+	margin:0 auto;
+	width:@boxWidth + 10;
+	#messageInput {
+		width:(@boxWidth - @sendButtonWidth - 2 - @colorPickerWidth - 4);
+	}
+	#colorPicker {
+		vertical-align:bottom;
+		width:@colorPickerWidth;
+		height:@colorPickerHeight;
+	}
+	#messageSubmit {
+		width:@sendButtonWidth;
+		margin:auto 0;
+	}
+}
+
+.message {
+	vertical-align:bottom;
+}
