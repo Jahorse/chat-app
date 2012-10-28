@@ -1,0 +1,1 @@
+This is a very simple chat app using the expressjs framework for nodejs, socket.io for nodejs, the hbs templating language, and LESS.
