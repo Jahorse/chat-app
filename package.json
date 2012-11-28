@@ -1,0 +1,17 @@
+{
+	"name": "chat-app",
+	"version": "0.1",
+	"dependancies": {
+	    "express": "3.0.0rc5",
+	    "socket.io": "0.9.10",
+	    "hbs": "1.0.5",
+	},
+	"author": {
+	    "name": "Dave Horsman",
+	    "email": "jahorse@gmail.com"
+	},
+	"engines": {
+	    "node": "0.8.x",
+	    "npm": "1.1.x"
+	}
+}
