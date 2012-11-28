@@ -64,11 +64,39 @@ sio.sockets.on('connection', function(socket) {
 	console.log("User connected.")
 	
 	socket.on('username', function(data) {
-		console.log(data.username)
-		users.push({ name: data.username });
+		console.log(data.username);
+		
+		users.push(data.username);
+		
+		socket.set('username', data.username, function() {
+			
+			data.message = "Successfully connected as <strong>" + data.username + "</strong><br />";
+			socket.emit('message', data);
+		});
+		
+		data.message = "User <strong>" + data.username + "</strong> has connected<br />";
+
+		socket.broadcast.emit('message', data);
 	});
 	
 	socket.on('message', function (data) {
+		
+		console.log("Sending message: " + data.message);
+
 		socket.broadcast.emit('message', data);
+	});
+	
+	socket.on('disconnect', function (data) {
+		socket.get('username', function(err, username) {
+			console.log("User disconnected: " + username);
+			
+			data = {};
+			data.message = "User <strong>" + username + "</strong> has disconnected<br />";
+			socket.broadcast.emit('message', data);
+			
+			console.log("index: " + users.indexOf(username));
+
+			users.splice(users.indexOf(username), 1);
+		});
 	});
 });

@@ -3,30 +3,34 @@ var socket = null;
 
 $(document).ready(function() {
 	
-	$('#usernameSubmit').click(connectToServer);
+	// Set up creating a username and connecting to the chat server \
+	$('#usernameSubmit').click(connectToServer); //					|
+	//																|
+	$('#usernameInput').keypress(function(e) { //					|
+		if (e.keyCode == 13) { //									|
+			connectToServer(); //									|
+		} //														|
+	}); //															|
+	// -------------------------------------------------------------/
 	
-	$('#usernameInput').keypress(function(e) {
-		if (e.keyCode == 13) {
-			connectToServer();
-		}
-	});
-	
-	var monitor = function() {
-	    var $this = $(this),
-	        wrap = $this.find('#innerChitChatBox'),
-	        height = $this.height(),
-	        maxScroll = wrap.height() - height,
-	        top = $this.scrollTop();
-	    if (maxScroll >= (top - 10) && maxScroll <= (top + 10)) {
-	        $this.addClass('atBottom');
-	    } else {
-	        $this.removeClass('atBottom');
-	    }
-	}
-	
-    window.setInterval(function() {
-        monitor.call($('#chitChatBox').get(0));
-    }, 350);
+	// Set up a monitoring function to keep window placement while new messages are added --\
+	var monitor = function() { //															|
+	    var $this = $(this), //																|
+	        wrap = $this.find('#innerChitChatBox'), //										|
+	        height = $this.height(), //														|
+	        maxScroll = wrap.height() - height, //											|
+	        top = $this.scrollTop(); //														|
+	    if (maxScroll >= (top - 10) && maxScroll <= (top + 10)) { //						|
+	        $this.addClass('atBottom'); //													|
+	    } else { //																			|
+	        $this.removeClass('atBottom'); //												|
+	    } //																				|
+	}; //																					|
+	//																						|
+    window.setInterval(function() { //														|
+        monitor.call($('#chitChatBox').get(0)); //											|
+    }, 350); //																				|
+    // -------------------------------------------------------------------------------------/
     
 	$('#chitChatBox').bind('addMessage', function(e, message) {
 	    var $this = $(this),
@@ -36,18 +40,20 @@ $(document).ready(function() {
 	    if (scroll) {
 	        var wrap = $this.find('#innerChitChatBox'),
 	            height = $this.height(),
-	            maxScroll = wrap.height() - height
+	            maxScroll = wrap.height() - height;
 	        $this.scrollTop(maxScroll);
 	    }
 	});
 	
-	$('#messageInput').keypress(function(e) {
-		if (e.keyCode == 13) {
-			sendMessage();
-		}
-	});
-	
-	$('#messageSubmit').click(sendMessage);
+	// Set up submitting messages-------------------\
+	$('#messageSubmit').click(sendMessage); //		|
+	//												|
+	$('#messageInput').keypress(function(e) { //	|
+		if (e.keyCode == 13) { //					|
+			sendMessage(); //						|
+		} //										|
+	}); //											|
+	// ---------------------------------------------/
 });
 
 function connectToServer(){
@@ -55,14 +61,17 @@ function connectToServer(){
 		username = $('#usernameInput').val();
 		
 		socket = io.connect('http://localhost:3000');
+		
 		socket.emit('username', { username: username });
+		
 		socket.on('message', function (data) {
 			receiveMessage(data.message);
 			console.log(data);
 		});
 		
-		$('#usernameInput').val('');
-		$('#usernameInput').attr('placeholder', username);
+		$('#usernameInput').attr('disabled', 'disabled');
+		$('#usernameSubmit').val('Connected');
+		$('#usernameSubmit').attr('disabled', 'disabled');
 	} else {
 		alert("Please enter a username")
 	}

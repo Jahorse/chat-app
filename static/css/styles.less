@@ -2,12 +2,18 @@
 @blue: #0000FF;
 @lightBlue: lighten(@blue, 25%);
 
+@borderWidth: 5px;
 @pageWidth: 1000px;
 @boxHeight: 450px;
-@boxWidth: (@pageWidth * 0.9);
+@chatContainerWidth: (@pageWidth * 0.9);
+@chitChatBoxWidth: (@chatContainerWidth * 0.8);
+@userListWidth: (@chatContainerWidth - @chitChatBoxWidth - (@borderWidth * 4));
 @sendButtonWidth: 46px;
 @colorPickerWidth: 23px;
 @colorPickerHeight:20px;
+@smallSpace: 5px;
+@mediumSpace: 10px;
+@largeSpace: (@mediumSpace + @smallSpace);
 
 html {
 	height:1000px;
@@ -32,33 +38,48 @@ a {
 	background-color:#FFF;
 	width:@pageWidth;
 	height:100%;
-	padding:0 10px;
+	padding:0 @mediumSpace;
 	margin:0 auto;
 	overflow:hidden;
 }
 
 #usernameConsole {
 	margin:0 auto;
-	width:@boxWidth + 10;
+	width:@chatContainerWidth + (@borderWidth * 2);
+
 	#usernameInput {
-		margin-left:0px;
+		margin-left:0;
 	}
 }
 
-#chitChatBox {
-	border:5px inset;
-	width:@boxWidth;
+#chatContainer {
+	border:@borderWidth inset;
+	width:@chatContainerWidth;
 	height:@boxHeight;
-	margin: 0 auto;
-	vertical-align: bottom;
-	overflow-y:scroll;
+	margin:0 auto;
+		
+	#chitChatBox {
+		display:inline-block;
+		width:@chitChatBoxWidth;
+		vertical-align:bottom;
+		overflow-y:scroll;
+	}
+	
+	#userListContainer {
+		display:inline-block;
+		width:@userListWidth;
+		padding:@smallSpace;
+		border-left: @borderWidth ridge;
+		overflow-y:auto;
+		height:100%;
+	}
 }
 
 #messageConsole {
 	margin:0 auto;
-	width:@boxWidth + 10;
+	width:@chatContainerWidth + (@borderWidth * 2);
 	#messageInput {
-		width:(@boxWidth - @sendButtonWidth - 2 - @colorPickerWidth - 4);
+		width:(@chatContainerWidth - @sendButtonWidth - 2 - @colorPickerWidth - 4);
 	}
 	#colorPicker {
 		vertical-align:bottom;
