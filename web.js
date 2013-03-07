@@ -77,13 +77,21 @@ sio.sockets.on('connection', function(socket) {
 		data.message = "User <strong>" + data.username + "</strong> has connected<br />";
 
 		socket.broadcast.emit('message', data);
+
+		data = {};
+		data.userList = "";
+
+		for (var i = 0; i < users.length; i++) {
+			data.userList += "<span>" + users[i] + "</span><br />";
+		}
+
+		console.log("UserList: " + data.userList);
+		sio.sockets.emit('userListUpdate', data);
 	});
 	
 	socket.on('message', function (data) {
-		
 		console.log("Sending message: " + data.message);
-
-		socket.broadcast.emit('message', data);
+		sio.sockets.emit('message', data);
 	});
 	
 	socket.on('disconnect', function (data) {
@@ -97,6 +105,16 @@ sio.sockets.on('connection', function(socket) {
 			console.log("index: " + users.indexOf(username));
 
 			users.splice(users.indexOf(username), 1);
+
+			data = {};
+			data.userList = "";
+
+			for (var i = 0; i < users.length; i++) {
+				data.userList += "<span>" + users[i] + "</span><br />";
+			}
+
+			console.log("UserList: " + data.userList);
+			sio.sockets.emit('userListUpdate', data);
 		});
 	});
 });

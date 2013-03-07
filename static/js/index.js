@@ -64,6 +64,11 @@ function connectToServer(){
 		
 		socket.emit('username', { username: username });
 		
+		socket.on('userListUpdate', function (data) {
+			updateUserList(data.userList);
+			console.log(data);
+		});
+
 		socket.on('message', function (data) {
 			receiveMessage(data.message);
 			console.log(data);
@@ -77,16 +82,18 @@ function connectToServer(){
 	}
 }
 
+function updateUserList(userList){
+	$('#userListContainer').html(userList);
+}
+
 function sendMessage() {
 	if (username && socket) {
 		if ($('#messageInput').val() != '') {
 			var message = '';
 	
-			message = "<span style='color:" + $('#colorPicker').val() + ";'>" 
-					+ username + ": " + $('#messageInput').val() + "</span><br/>";
+			message = username + ": <span style='color:" + $('#colorPicker').val() + ";'>" + $('#messageInput').val() + "</span><br/>";
 	
 			socket.emit('message', { message: message });
-			$('#chitChatBox').trigger('addMessage', message);
 		    $('#messageInput').val('');
 		    $('#messageInput').focus();
 		}

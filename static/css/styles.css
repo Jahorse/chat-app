@@ -1,0 +1,71 @@
+html {
+  height: 1000px;
+}
+body {
+  background-color: #ff9900;
+  height: 100%;
+  margin: 0;
+}
+a {
+  text-decoration: none;
+  color: blue;
+}
+a:hover {
+  text-decoration: underline;
+  color: #8080ff;
+}
+.content {
+  background-color: white;
+  width: 1000px;
+  height: 100%;
+  padding: 0 10px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+#usernameConsole {
+  margin: 0 auto;
+  width: 910px;
+}
+#usernameConsole #usernameInput {
+  margin-left: 0;
+}
+#chatContainer {
+  border: 5px inset;
+  width: 900px;
+  height: 450px;
+  margin: 0 auto;
+}
+#chatContainer #chitChatBox {
+  display: inline-block;
+  width: 720px;
+  vertical-align: top;
+  overflow-y: scroll;
+  height: inherit;
+}
+#chatContainer #userListContainer {
+  display: inline-block;
+  width: 160px;
+  padding: 5px;
+  border-left: 5px ridge;
+  overflow-y: auto;
+  height: 100%;
+}
+#messageConsole {
+  margin: 0 auto;
+  width: 910px;
+}
+#messageConsole #messageInput {
+  width: 825px;
+}
+#messageConsole #colorPicker {
+  vertical-align: bottom;
+  width: 23px;
+  height: 20px;
+}
+#messageConsole #messageSubmit {
+  width: 46px;
+  margin: auto 0;
+}
+.message {
+  vertical-align: bottom;
+}
