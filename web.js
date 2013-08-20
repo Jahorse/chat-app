@@ -59,6 +59,7 @@ var server = http.createServer(app)
 
 var port = process.env.PORT || 5000;
 
+// Required for Heroku
 sio.configure(function () { 
   sio.set("transports", ["xhr-polling"]); 
   sio.set("polling duration", 10); 
