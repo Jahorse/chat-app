@@ -60,7 +60,7 @@ function connectToServer(){
 	if ($('#usernameInput').val() != '') {
 		username = $('#usernameInput').val();
 		
-		socket = io.connect('http://frozen-beach-1984.herokuapp.com:5000');
+		socket = io.connect('http://localhost:5000');
 		
 		socket.emit('username', { username: username });
 		
