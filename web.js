@@ -59,13 +59,6 @@ var server = http.createServer(app)
 
 var port = process.env.PORT || 5000;
 
-// NO LONGER REQUIRED
-// Required for Heroku
-//sio.configure(function () { 
-//  sio.set("transports", ["xhr-polling"]); 
-//  sio.set("polling duration", 10); 
-//});
-
 server.listen(port);
 console.log("Express server listening on port " + port + ".");
 
