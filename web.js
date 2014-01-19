@@ -33,8 +33,6 @@ app.set('views', __dirname + '/views');
 // Page definitions
 
 app.get('/', function(req, res){
-	console.log('Getting index.');
-	
 	res.render('index', {
 		title: 'ChitChat',
 		page: 'index'
@@ -44,8 +42,6 @@ app.get('/', function(req, res){
 var users = [];
 
 app.get('/users', function(req, res){
-	console.log("Getting users.");
-	
 	res.render('users', {
 		title: 'Users',
 		page: 'users',
@@ -60,18 +56,12 @@ var server = http.createServer(app)
 var port = process.env.PORT || 5000;
 
 server.listen(port);
-console.log("Express server listening on port " + port + ".");
 
 sio.sockets.on('connection', function(socket) {
-	console.log("User connected.");
-	
 	socket.on('username', function(data) {
-		console.log(data.username);
-		
 		users.push(data.username);
 		
 		socket.set('username', data.username, function() {
-			
 			data.message = "Successfully connected as <strong>" + data.username + "</strong><br />";
 			socket.emit('message', data);
 		});
@@ -87,25 +77,19 @@ sio.sockets.on('connection', function(socket) {
 			data.userList += "<span>" + users[i] + "</span><br />";
 		}
 
-		console.log("UserList: " + data.userList);
 		sio.sockets.emit('userListUpdate', data);
 	});
 	
 	socket.on('message', function (data) {
-		console.log("Sending message: " + data.message);
 		sio.sockets.emit('message', data);
 	});
 	
 	socket.on('disconnect', function (data) {
 		socket.get('username', function(err, username) {
-			console.log("User disconnected: " + username);
-			
 			data = {};
 			data.message = "User <strong>" + username + "</strong> has disconnected<br />";
 			socket.broadcast.emit('message', data);
 			
-			console.log("index: " + users.indexOf(username));
-
 			users.splice(users.indexOf(username), 1);
 
 			data = {};
@@ -115,7 +99,6 @@ sio.sockets.on('connection', function(socket) {
 				data.userList += "<span>" + users[i] + "</span><br />";
 			}
 
-			console.log("UserList: " + data.userList);
 			sio.sockets.emit('userListUpdate', data);
 		});
 	});
